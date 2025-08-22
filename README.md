@@ -1,5 +1,8 @@
 # QoraNet 🌊⚡
 
+<img width="512" height="702" alt="Untitled design (9)" src="https://github.com/user-attachments/assets/5e061bab-5887-4f4e-a150-036aa35b4f9b" />
+
+
 **A next-generation blockchain powered by Proof of Liquidity and distributed application hosting**
 
 QoraNet revolutionizes blockchain consensus by combining liquidity provision with useful computational work. Users earn rewards by providing liquidity to DEX pools AND hosting applications on their systems, creating a truly productive and economically efficient network.
