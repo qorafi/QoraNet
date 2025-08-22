@@ -6,10 +6,13 @@ pub mod storage;
 pub mod rpc;
 pub mod app_monitor;
 pub mod rewards;
+pub mod fee_oracle;
 
 use ed25519_dalek::{Keypair, PublicKey, Signature};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
+
+pub use fee_oracle::*;
 
 /// QoraNet version
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
