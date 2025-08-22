@@ -269,9 +269,9 @@ impl TransactionPool {
     }
     
     /// Add transaction to pool
-    pub fn add_transaction(&mut self, transaction: Transaction) -> Result<()> {
+    pub async fn add_transaction(&mut self, transaction: Transaction, fee_oracle: &GlobalFeeOracle) -> Result<()> {
         // Validate transaction
-        transaction.validate()?;
+        transaction.validate(fee_oracle).await?;
         
         let tx_hash = transaction.hash();
         let signer = transaction.signer.clone();
@@ -304,13 +304,30 @@ impl TransactionPool {
         }
     }
     
-    /// Get transactions for block creation
+    /// Get transactions for block creation (sorted by fee priority)
     pub fn get_transactions_for_block(&self, max_count: usize) -> Vec<Transaction> {
-        self.pending
-            .values()
-            .take(max_count)
-            .cloned()
-            .collect()
+        let mut transactions: Vec<Transaction> = self.pending.values().cloned().collect();
+        
+        // Sort by priority (Urgent > High > Medium > Low) then by fee amount
+        transactions.sort_by(|a, b| {
+            // First sort by priority
+            let priority_order = |p: &FeePriority| match p {
+                FeePriority::Urgent => 4,
+                FeePriority::High => 3, 
+                FeePriority::Medium => 2,
+                FeePriority::Low => 1,
+            };
+            
+            let priority_cmp = priority_order(&b.priority).cmp(&priority_order(&a.priority));
+            if priority_cmp != std::cmp::Ordering::Equal {
+                return priority_cmp;
+            }
+            
+            // Then sort by fee amount (higher fees first)
+            b.fee_qor.cmp(&a.fee_qor)
+        });
+        
+        transactions.into_iter().take(max_count).collect()
     }
     
     /// Get pending transaction count
