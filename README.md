@@ -57,7 +57,7 @@ QoraNet combines two key components:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/qoranet.git
+git clone https://github.com/qorafi/qoranet.git
 cd qoranet
 
 # Build the project
