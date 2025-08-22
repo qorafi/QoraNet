@@ -1,11 +1,41 @@
+Now here's a quick setup guide for your Electron app:
+📁 File Structure
+
+```
+qoranet-miner/
+├── qoranet-miner.html    (your main HTML file)
+├── package.json          (project configuration)
+├── main.js              (Electron main process)
+├── preload.js           (secure bridge to renderer)
+└── assets/              (optional - for icons)
+    ├── icon.png
+    ├── icon.ico
+    └── icon.icns
+
+```
+🚀 Quick Setup Commands
+
+Initialize the project:
+```
+bashnpm install
+```
+Run in development:
+```
+bashnpm start
+```
+Build for distribution:
+```
+bash# For your current platform
+npm run build
+```
+# Platform-specific builds
+```
+npm run build-win    # Windows
+npm run build-mac    # macOS  
+npm run build-linux  # Linux
 ✨ Key Features Added
 🔧 Main Process (main.js)
-
-Window management with proper sizing and icons
-Menu bar with mining controls and shortcuts
-IPC communication for secure data exchange
-Auto-updater ready configuration
-Cross-platform compatibility
+```
 
 🛡️ Security (preload.js)
 
